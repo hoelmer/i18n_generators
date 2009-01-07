@@ -51,7 +51,9 @@ module I18nGenerator::Generator
       private
       def model_filenames
         Dir.chdir("#{RAILS_ROOT}/app/models/") do
-          Dir["**/*.rb"].map {|m| m.sub(/\.rb$/, '')}
+          # Support STI models in subdirectories instead of namespaced models
+          #Dir["**/*.rb"].map {|m| m.sub(/\.rb$/, '')}
+          Dir["**/*.rb"].map {|m| File.basename(m, ".rb") }
         end
       end
 
